@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -70,6 +72,25 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
   TextEditingController textDateController = TextEditingController();
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
+  // final RoundedLoadingButtonController _btnViewData =
+  //     RoundedLoadingButtonController();
+
+  void _doSomething() async {
+    Timer(const Duration(seconds: 7), () {});
+  }
+
+  // void _doviewSomething() async {
+  //   Timer(Duration(milliseconds: 1), () {
+  //     _btnViewData.success();
+  //   });
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    wreckagetitleController =
+        new TextEditingController(text: 'Images Predefine');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,20 +158,20 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                     return "Reminder: Make sure you put a Number not a Alphabet";
                   },
                 ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: wreckagetitleController,
-                  decoration: InputDecoration(
-                      errorStyle: TextStyle(color: Colors.teal),
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Wreckage  image"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some image num ( exp : 2222.png)';
-                    }
-                    return "Reminder: recheck your form";
-                  },
-                ),
+                // SizedBox(height: 10),
+                // TextFormField(
+                //   controller: wreckagetitleController,
+                //   decoration: InputDecoration(
+                //       errorStyle: TextStyle(color: Colors.teal),
+                //       border: OutlineInputBorder(),
+                //       hintText: "Enter Wreckage  image"),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter some image num ( exp : 2222.png)';
+                //     }
+                //     return "Reminder: recheck your form";
+                //   },
+                // ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: wreckageimageController,
@@ -218,6 +239,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                       Text('Sent Data', style: TextStyle(color: Colors.white)),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {}
+                    _doSomething();
 
                     String vehicle_id = vehicleidController.text;
                     String driver_id = driveridController.text;
@@ -244,18 +266,25 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                     });
                   },
                 ),
-                SizedBox(height: 10),
-                RoundedLoadingButton(
-                  controller: _btnController,
-                  borderRadius: BorderSide.strokeAlignCenter,
-                  child: Text(
-                    'View Data',
-                    style: TextStyle(color: Colors.white),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MaterialButton(
+                    minWidth: 300,
+                    height: 50,
+                    child: Text(
+                      'View Data',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      // _doviewSomething();
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => WreckageView()));
+                    },
+                    elevation: 4.0,
+                    color: Colors.green,
                   ),
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => WreckageView())),
-                  elevation: 4.0,
-                  color: Colors.green,
                 )
               ]),
             ),

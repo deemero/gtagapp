@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:gtagapp/screen/test.dart';
 import 'package:gtagapp/view_data/maintenance_reportview_get.dart';
+import 'package:gtagapp/view_data/report_wreckage_get.dart';
 import 'package:http/http.dart' as http;
 import '../model/maintenance_model_post.dart';
 import 'package:quickalert/quickalert.dart';
@@ -58,8 +61,23 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
+
+  final RoundedLoadingButtonController _btnViewData =
+      RoundedLoadingButtonController();
   late ResPostMaintenance _resPostMaintenance;
   final formKey = GlobalKey<FormState>();
+
+  void _doSomething() async {
+    Timer(Duration(seconds: 7), () {
+      _btnController.success();
+    });
+  }
+
+  void _doviewSomething() async {
+    Timer(Duration(milliseconds: 1), () {
+      _btnViewData.success();
+    });
+  }
 
   void validate() {
     if (formKey.currentState!.validate()) {
@@ -76,6 +94,13 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
   TextEditingController maintenanceCostController = TextEditingController();
   TextEditingController maintenanceDateController = TextEditingController();
   TextEditingController maintenanceTitleController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    maintenanceImageController =
+        new TextEditingController(text: 'Images Predefine');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,19 +141,19 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                   },
                 ),
                 SizedBox(height: 10),
-                TextFormField(
-                  controller: maintenanceImageController,
-                  decoration: InputDecoration(
-                      errorStyle: TextStyle(color: Colors.teal),
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Maintenance Image [Image.Number]"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some Image ( example = 2222.png)';
-                    }
-                    return "Reminder: Make sure you put image type (Example : 123123.png)";
-                  },
-                ),
+                // TextFormField(
+                //   controller: maintenanceImageController,
+                //   decoration: InputDecoration(
+                //       errorStyle: TextStyle(color: Colors.teal),
+                //       border: OutlineInputBorder(),
+                //       hintText: "Enter Maintenance Image [Image.Number]"),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter some Image ( example = 2222.png)';
+                //     }
+                //     return "Reminder: Make sure you put image type (Example : 123123.png)";
+                //   },
+                // ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: maintenanceDetailController,
@@ -208,6 +233,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                       Text('Sent Data', style: TextStyle(color: Colors.white)),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {}
+                    _doSomething();
 
                     String vehicleId = vehicleIdController.text;
                     String maintenanceDetail = maintenanceDetailController.text;
@@ -232,17 +258,24 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                   },
                 ),
                 SizedBox(height: 10),
-                RoundedLoadingButton(
-                  controller: _btnController,
-                  borderRadius: BorderSide.strokeAlignCenter,
-                  child: Text(
-                    'View Data',
-                    style: TextStyle(color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MaterialButton(
+                    minWidth: 300,
+                    height: 50,
+                    child: Text(
+                      'View Data',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      // _doviewSomething();
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => WreckageView()));
+                    },
+                    elevation: 4.0,
+                    color: Colors.green,
                   ),
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => MaintenanceView())),
-                  elevation: 4.0,
-                  color: Colors.green,
                 )
               ]),
             ),
