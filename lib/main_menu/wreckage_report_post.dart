@@ -76,14 +76,10 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
   //     RoundedLoadingButtonController();
 
   void _doSomething() async {
-    Timer(const Duration(seconds: 7), () {});
+    Timer(const Duration(seconds: 7), () {
+      _btnController.success();
+    });
   }
-
-  // void _doviewSomething() async {
-  //   Timer(Duration(milliseconds: 1), () {
-  //     _btnViewData.success();
-  //   });
-  // }
 
   @override
   void initState() {

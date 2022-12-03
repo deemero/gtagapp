@@ -73,12 +73,6 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
     });
   }
 
-  void _doviewSomething() async {
-    Timer(Duration(milliseconds: 1), () {
-      _btnViewData.success();
-    });
-  }
-
   void validate() {
     if (formKey.currentState!.validate()) {
       print("valid");
@@ -271,7 +265,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                       // _doviewSomething();
 
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => WreckageView()));
+                          MaterialPageRoute(builder: (_) => MaintenanceView()));
                     },
                     elevation: 4.0,
                     color: Colors.green,
