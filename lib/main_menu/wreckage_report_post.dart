@@ -72,8 +72,6 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
   TextEditingController textDateController = TextEditingController();
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
-  // final RoundedLoadingButtonController _btnViewData =
-  //     RoundedLoadingButtonController();
 
   void _doSomething() async {
     Timer(const Duration(seconds: 7), () {
@@ -86,6 +84,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
     super.initState();
     wreckagetitleController =
         new TextEditingController(text: 'Images Predefine');
+    // wreckageimageController = new TextEditingController(text: "er");
   }
 
   @override
@@ -105,6 +104,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Vehicle Id"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Number ( example = Enter Vehicle Id:  1)';
@@ -119,6 +119,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Driver Id "),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Driver Id ( example = 1)';
@@ -133,6 +134,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Cost "),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Maintenance Cost  ( example = 2000)';
@@ -147,6 +149,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter  Title "),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Title ( example = tayar rosak)';
@@ -175,6 +178,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter action needed"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some action Needed ( example = tukar plat)';
@@ -188,7 +192,8 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                   decoration: InputDecoration(
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
-                      hintText: "Enter description  "),
+                      hintText: "Enter Description  "),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Description';
@@ -202,9 +207,11 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                 TextFormField(
                   controller: textDateController,
                   decoration: InputDecoration(
+                      icon: Icon(Icons.date_range),
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: " Select Date"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter date';

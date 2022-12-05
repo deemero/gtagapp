@@ -58,6 +58,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
   //       text: "The data have been sent, see your data",
   //       type: QuickAlertType.success);
   // }
+  // final items = ["1", "2", "3", "4", "5"];
 
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
@@ -66,6 +67,8 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
       RoundedLoadingButtonController();
   late ResPostMaintenance _resPostMaintenance;
   final formKey = GlobalKey<FormState>();
+
+  // String? value;
 
   void _doSomething() async {
     Timer(Duration(seconds: 7), () {
@@ -113,6 +116,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Vehicle Id  [Number]"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Number ( example = Enter Vehicle Id:  1)';
@@ -127,6 +131,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Maintenance Title"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Title ( example =  Tayar bocor)';
@@ -155,6 +160,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Maintenance Detail"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Detail ( example =  Perlu Tayar baru)';
@@ -163,12 +169,14 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                   },
                 ),
                 SizedBox(height: 10),
+
                 TextFormField(
                   controller: maintenanceCostController,
                   decoration: InputDecoration(
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Maintenance Cost [Number]"),
+                  style: TextStyle(fontSize: 20),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Cost ( example =  2000)';
@@ -183,6 +191,7 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: "Enter Workshop Name"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Workshop Name( example = Ali Pomen)';
@@ -190,13 +199,15 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                     return "Reminder: Make sure you put a Alphabet not a Number";
                   },
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 13),
                 TextFormField(
                   controller: maintenanceDateController,
                   decoration: InputDecoration(
+                      icon: Icon(Icons.date_range),
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
                       hintText: " Select Date"),
+                  style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Select a Date';
@@ -279,6 +290,13 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
     );
   }
 }
+
+// DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+//       value: item,
+//       child: Text(item, style: const TextStyle(fontWeight: FontWeight.bold)),
+//     );
+  
+
 
 
 //Elevate button for change rounded button if needed // 
