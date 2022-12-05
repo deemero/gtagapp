@@ -3,6 +3,7 @@ import 'package:gtagapp/main_menu/maintenance_report_page_post.dart';
 import 'package:gtagapp/main_menu/wreckage_report_post.dart';
 import 'package:gtagapp/screen/sign_in_page.dart';
 import 'package:gtagapp/setting/homepage_setting.dart';
+import 'package:quickalert/quickalert.dart';
 
 class MainMenuPage extends StatefulWidget {
   @override
@@ -10,6 +11,14 @@ class MainMenuPage extends StatefulWidget {
 }
 
 class _MainMenuPageState extends State<MainMenuPage> {
+  void showAlert() {
+    QuickAlert.show(
+        context: context,
+        title: "Coming Soon :) ",
+        text: "Visit Our Website To See Our Latest News",
+        type: QuickAlertType.info);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +87,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
               child: Container(
                 child: new FittedBox(
                   child: MaterialButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => MainMenuPage())),
+                    onPressed: () {
+                      showAlert();
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (_) => MainMenuPage()));
+                    },
                     child: Material(
                         color: Colors.white,
                         elevation: 14.0,
