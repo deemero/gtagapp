@@ -170,8 +170,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
               child: Container(
                 child: new FittedBox(
                   child: MaterialButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => MainMenuPage())),
+                    onPressed: () {
+                      showAlert();
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (_) => MainMenuPage()));
+                    },
                     child: Material(
                         color: Colors.white,
                         elevation: 14.0,
