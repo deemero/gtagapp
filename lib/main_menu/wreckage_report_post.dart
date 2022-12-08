@@ -18,14 +18,14 @@ class ReportWreckagePage extends StatefulWidget {
   State<ReportWreckagePage> createState() => _ReportWreckagePageState();
 }
 
-Future<ResPostWreakage?> submitData(
+Future<ResPostWreckage?> submitData(
     String vehicle_id,
-    String date,
     String driver_id,
     String location,
-    String description,
-    String wreckage_title,
+    String date,
     String wreckage_image,
+    String wreckage_title,
+    String description,
     String action_needed) async {
   var response = await http.post(
       Uri.parse("http://vehiclehackhaton.herokuapp.com/api/adddataWreckage"),
@@ -33,25 +33,26 @@ Future<ResPostWreakage?> submitData(
         "vehicle_id": vehicle_id.toString(),
         "driver_id": driver_id.toString(),
         "location": location.toString(),
-        'description': description,
+        "date": date.toString(),
+        "wreckage_image": wreckage_image,
         'wreckage_title': wreckage_title,
-        "wreckage_image": wreckage_image.toString(),
+        'description': description,
         "action_needed": action_needed,
-        "date": date.toString()
       });
   var data = response.body;
   print(data);
 
   if (response.statusCode == 200) {
     String responseString = response.body;
-    resPostWreakageFromJson(responseString);
+    resPostWreckageFromJson(responseString);
   } else {
     return null;
   }
 }
 
 class _ReportWreckagePageState extends State<ReportWreckagePage> {
-  late ResPostWreakage _resPostWreakage;
+  late ResPostWreckage _resPostWreckage;
+
   final formKey = GlobalKey<FormState>();
 
   void validate() {
@@ -65,11 +66,11 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
   TextEditingController vehicleidController = TextEditingController();
   TextEditingController driveridController = TextEditingController();
   TextEditingController locationController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController wreckagetitleController = TextEditingController();
-  TextEditingController wreckageimageController = TextEditingController();
-  TextEditingController actionneededController = TextEditingController();
   TextEditingController textDateController = TextEditingController();
+  TextEditingController wreckageimageController = TextEditingController();
+  TextEditingController wreckagetitleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController actionneededController = TextEditingController();
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
@@ -82,7 +83,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
   @override
   void initState() {
     super.initState();
-    wreckagetitleController =
+    wreckageimageController =
         new TextEditingController(text: 'Images Predefine');
     // wreckageimageController = new TextEditingController(text: "er");
   }
@@ -133,7 +134,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                   decoration: InputDecoration(
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
-                      hintText: "Enter Cost "),
+                      hintText: "Enter location "),
                   style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -148,7 +149,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                   decoration: InputDecoration(
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
-                      hintText: "Enter  Title "),
+                      hintText: "Enter Description "),
                   style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -173,11 +174,11 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                 // ),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller: wreckageimageController,
+                  controller: wreckagetitleController,
                   decoration: InputDecoration(
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
-                      hintText: "Enter action needed"),
+                      hintText: "Enter Title"),
                   style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -192,7 +193,7 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                   decoration: InputDecoration(
                       errorStyle: TextStyle(color: Colors.teal),
                       border: OutlineInputBorder(),
-                      hintText: "Enter Description  "),
+                      hintText: "Enter Action Needed  "),
                   style: TextStyle(fontSize: 25),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -247,25 +248,25 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                     String vehicle_id = vehicleidController.text;
                     String driver_id = driveridController.text;
                     String location = locationController.text;
-                    String description = descriptionController.text;
-                    String wreckage_title = wreckagetitleController.text;
-                    String wreckage_image = wreckageimageController.text;
-                    String action_needed = actionneededController.text;
                     String date = textDateController.text;
+                    String wreckage_image = wreckageimageController.text;
+                    String wreckage_title = wreckagetitleController.text;
+                    String description = descriptionController.text;
+                    String action_needed = actionneededController.text;
 
-                    ResPostWreakage? data = await submitData(
+                    ResPostWreckage? data = await submitData(
                       vehicle_id,
-                      date,
-                      location,
-                      description,
-                      wreckage_title,
-                      wreckage_image,
-                      action_needed,
                       driver_id,
+                      location,
+                      date,
+                      wreckage_image,
+                      wreckage_title,
+                      description,
+                      action_needed,
                     );
 
                     setState(() {
-                      _resPostWreakage = data!;
+                      _resPostWreckage = data!;
                     });
                   },
                 ),
