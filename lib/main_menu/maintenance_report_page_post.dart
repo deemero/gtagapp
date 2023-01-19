@@ -1,23 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
+// import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:gtagapp/screen/test.dart';
+
 import 'package:gtagapp/view_data/maintenance_reportview_get.dart';
 import 'package:gtagapp/view_data/report_wreckage_get.dart';
 import 'package:http/http.dart' as http;
 import '../model/maintenance_model_post.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-
 import '../screen/main_menu.dart';
 
-class MaintainceReportPage extends StatefulWidget {
-  const MaintainceReportPage({super.key});
+class MaintenanceReportPage extends StatefulWidget {
+  const MaintenanceReportPage({super.key});
 
   @override
-  State<MaintainceReportPage> createState() => _MaintainceReportPageState();
+  State<MaintenanceReportPage> createState() => _MaintenanceReportPageState();
 }
 
 Future<ResPostMaintenance?> submitData(
@@ -50,7 +49,7 @@ Future<ResPostMaintenance?> submitData(
   }
 }
 
-class _MaintainceReportPageState extends State<MaintainceReportPage> {
+class _MaintenanceReportPageState extends State<MaintenanceReportPage> {
   // void showAlert() {
   //   QuickAlert.show(
   //       context: context,
@@ -101,6 +100,14 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    String _selectedValue = '1';
+
+    @override
+    void initState() {
+      super.initState();
+      vehicleIdController.text = _selectedValue;
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text("Maintaince Report")),
       body: Form(
@@ -110,19 +117,26 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
             padding: const EdgeInsets.all(20.0),
             child: Container(
               child: Column(children: [
-                TextFormField(
-                  controller: vehicleIdController,
+                DropdownButtonFormField(
                   decoration: InputDecoration(
-                      errorStyle: TextStyle(color: Colors.teal),
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Vehicle Id  [Number]"),
-                  style: TextStyle(fontSize: 25),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some Number ( example = Enter Vehicle Id:  1)';
-                    }
-                    return "Reminder: Make sure you put a Number not a Alphabet";
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(1)),
+                      hintText: 'Enter Vehicle Id',
+                      hintStyle: TextStyle(fontSize: 25)),
+                  // value: _selectedValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedValue = newValue!;
+                      vehicleIdController.text = _selectedValue;
+                    });
                   },
+                  items: <String>['1', '2', '3']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
@@ -140,20 +154,6 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                   },
                 ),
                 SizedBox(height: 10),
-                // TextFormField(
-                //   controller: maintenanceImageController,
-                //   decoration: InputDecoration(
-                //       errorStyle: TextStyle(color: Colors.teal),
-                //       border: OutlineInputBorder(),
-                //       hintText: "Enter Maintenance Image [Image.Number]"),
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please enter some Image ( example = 2222.png)';
-                //     }
-                //     return "Reminder: Make sure you put image type (Example : 123123.png)";
-                //   },
-                // ),
-                SizedBox(height: 10),
                 TextFormField(
                   controller: maintenanceDetailController,
                   decoration: InputDecoration(
@@ -169,7 +169,6 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
                   },
                 ),
                 SizedBox(height: 10),
-
                 TextFormField(
                   controller: maintenanceCostController,
                   decoration: InputDecoration(
@@ -290,38 +289,3 @@ class _MaintainceReportPageState extends State<MaintainceReportPage> {
     );
   }
 }
-
-// DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-//       value: item,
-//       child: Text(item, style: const TextStyle(fontWeight: FontWeight.bold)),
-//     );
-  
-
-
-
-//Elevate button for change rounded button if needed // 
-
-   // ElevatedButton(
-              //     onPressed: () async {
-              //       String vehicleId = vehicleIdController.text;
-              //       String maintenanceDetail = maintenanceDetailController.text;
-              //       String maintenanceTitle = maintenanceTitleController.text;
-              //       String workshopName = workshopNameController.text;
-              //       String maintenanceImage = maintenanceImageController.text;
-              //       String maintenanceCost = maintenanceCostController.text;
-              //       String maintenanceDate = maintenanceDateController.text;
-
-              //       ResPostMaintenance? data = await submitData(
-              //           maintenanceImage,
-              //           vehicleId,
-              //           workshopName,
-              //           maintenanceTitle,
-              //           maintenanceDate,
-              //           maintenanceDetail,
-              //           maintenanceCost);
-
-              //       setState(() {
-              //         _resPostMaintenance = data!;
-              //       });
-              //     },
-              //     child: Text("Submit Report")),

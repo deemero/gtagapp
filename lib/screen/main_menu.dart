@@ -132,7 +132,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
                     onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => MaintainceReportPage())),
+                            builder: (_) => MaintenanceReportPage())),
                     child: Material(
                         color: Colors.white,
                         elevation: 14.0,

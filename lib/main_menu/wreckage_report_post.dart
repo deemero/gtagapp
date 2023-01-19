@@ -90,6 +90,14 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
 
   @override
   Widget build(BuildContext context) {
+    String _selectedValue = '1';
+
+    @override
+    void initState() {
+      super.initState();
+      vehicleidController.text = _selectedValue;
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text("Report Wreakage")),
       body: Form(
@@ -99,20 +107,41 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
             padding: const EdgeInsets.all(20.0),
             child: Container(
               child: Column(children: [
-                TextFormField(
-                  controller: vehicleidController,
+                DropdownButtonFormField(
                   decoration: InputDecoration(
-                      errorStyle: TextStyle(color: Colors.teal),
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Vehicle Id"),
-                  style: TextStyle(fontSize: 25),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some Number ( example = Enter Vehicle Id:  1)';
-                    }
-                    return "Reminder: Make sure you put a Number not a Alphabet";
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(1)),
+                      hintText: 'Enter Vehicle Id',
+                      hintStyle: TextStyle(fontSize: 25)),
+                  // value: _selectedValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedValue = newValue!;
+                      vehicleidController.text = _selectedValue;
+                    });
                   },
+                  items: <String>['1', '2', '3']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
+                // TextFormField(
+                //   controller: vehicleidController,
+                //   decoration: InputDecoration(
+                //       errorStyle: TextStyle(color: Colors.teal),
+                //       border: OutlineInputBorder(),
+                //       hintText: "Enter Vehicle Id"),
+                //   style: TextStyle(fontSize: 25),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter some Number ( example = Enter Vehicle Id:  1)';
+                //     }
+                //     return "Reminder: Make sure you put a Number not a Alphabet";
+                //   },
+                // ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: driveridController,
@@ -158,20 +187,6 @@ class _ReportWreckagePageState extends State<ReportWreckagePage> {
                     return "Reminder: Make sure you put a Number not a Alphabet";
                   },
                 ),
-                // SizedBox(height: 10),
-                // TextFormField(
-                //   controller: wreckagetitleController,
-                //   decoration: InputDecoration(
-                //       errorStyle: TextStyle(color: Colors.teal),
-                //       border: OutlineInputBorder(),
-                //       hintText: "Enter Wreckage  image"),
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please enter some image num ( exp : 2222.png)';
-                //     }
-                //     return "Reminder: recheck your form";
-                //   },
-                // ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: wreckagetitleController,
